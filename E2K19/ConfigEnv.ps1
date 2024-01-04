@@ -10,8 +10,7 @@
 # sample scripts or documentation, even if Microsoft has been advised of the possibility of such damages. 
 #
 # Script Name:		        ConfigEnv.PS1
-# Authors:			        Muris Saab | Principal PFE | Microsoft | muris.saab@microsoft.com
-# Last Update (2020-07-23):	Rodrigo Sorbara | PFE | rods@microsoft.com (check history in Azure DevOps)
+# Last Update (2024-01-04):	Scott Bueffel, scotbue@microsoft.com
 #
 ##########################################################################################################
 
@@ -41,29 +40,17 @@ Read-Host
 Write-Host -ForegroundColor White "`nBEFORE WE BEGIN:"
 Write-Host " - Making sure services are started on ADFS-DC..."
 
-    Invoke-Command -ComputerName ADFS-DC -ScriptBlock {Get-WmiObject "Win32_Service"  | where {$_.name -notlike "edge*" -and $_.startmode -eq 'Auto' -and $_.State -eq "Stopped"} | `
+    Invoke-Command -ComputerName ADFS-DC -ScriptBlock {Get-WmiObject "Win32_Service"  | Where-Object {$_.name -notlike "edge*" -and $_.startmode -eq 'Auto' -and $_.State -eq "Stopped"} | `
 	Select-Object Name | Get-Service | Start-Service | Out-Null }
 
-#Write-Host " - Making sure services are started on E2K7..."
-#    Get-WmiObject "Win32_Service"  | where {$_.name -notlike "clr_optimization*" -and $_.startmode -eq 'Auto' -and $_.State -eq "Stopped"}  | `
-#	Select-Object Name | Get-Service | Start-Service | Out-Null
-
-# Write-Host " - Making sure services are started on E2K10..."
-#    Invoke-Command -ComputerName E2K10 -ScriptBlock {Get-WmiObject "Win32_Service"  | where {$_.name -notlike "clr_optimization*" -and $_.startmode -eq 'Auto' -and $_.State -eq "Stopped"}  | `
-#	Select-Object Name | Get-Service | Start-Service | Out-Null }
-
 Write-Host " - Making sure services are started on E2K19..."
-    Invoke-Command -ComputerName E2K19 -ScriptBlock {Get-WmiObject "Win32_Service"  | where {$_.name -notlike "clr_optimization*" -and $_.startmode -eq 'Auto' -and $_.State -eq "Stopped"} | `
+    Invoke-Command -ComputerName E2K19 -ScriptBlock {Get-WmiObject "Win32_Service"  | Where-Object {$_.name -notlike "edge*" -and $_.name -notlike "clr_optimization*" -and $_.startmode -eq 'Auto' -and $_.State -eq "Stopped"} | `
 	Select-Object Name | Get-Service | Start-Service | Out-Null }
 
 
 # Create Remote PowerShell sessions
 
-Write-Host -ForegroundColor White "`nESTABLISHING REMOTE POWERSHELL SESSIONS:"
-# Write-Host " - Connecting to E2K10 via Remote PowerShell..."
-#     $Session2010 = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://E2K10.pfelabs.local/PowerShell
-#     Import-PSSession $Session2010 -Prefix 2010 -DisableNameChecking | Out-Null
-
+Write-Host -ForegroundColor White "`nESTABLISHING REMOTE POWERSHELL SESSION:"
 Write-Host " - Connecting to E2K19 via Remote PowerShell..."
     $Session2019 = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://E2K19.pfelabs.local/PowerShell
     Import-PSSession $Session2019 -Prefix 2019 -DisableNameChecking | Out-Null
