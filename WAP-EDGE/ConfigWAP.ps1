@@ -10,9 +10,8 @@
 # sample scripts or documentation, even if Microsoft has been advised of the possibility of such damages. 
 #
 # Script Name:               ConfigWAP.ps1
-# Authors:                   Muris Saab | muriss@microsoft.com, Vincent Yim | Senior PFE | vyim@microsoft.com
-# Last Update (11/11/2020):  Rodrigo Sorbara | Sr. PFE | rods@microsoft.com
-# Update notes:              Support IP tool lifecycle action (LCA) and create autod records
+# Last Update (01/04/2024):  Scott Bueffel, scotbue@microsoft.com
+# Update notes:              Remove admin username from appearing after external IP address
 #
 # DNSShell PowerShell module provided by http://dnsshell.codeplex.com
 #
@@ -35,7 +34,7 @@ if ($BypassCompanyFile -eq $false) {
         $cdname = $companySettings.CompanyPrefix
         Write-Host -ForegroundColor Green "Your assigned company name: $cdname"
         $wapipaddress = $companySettings.PublicIPAddress
-        Write-Host -ForegroundColor Green "Your assigned external IP address: $wapipaddress"PFELABS\Administrator
+        Write-Host -ForegroundColor Green "Your assigned external IP address: $wapipaddress"
      }
     else {
         Write-Warning "companySettings.json file was not found in c:\labfiles. Notify your instructor about this."
