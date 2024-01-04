@@ -86,23 +86,8 @@ Write-Host  -NoNewline " - Updating Default Email Address Policy with " ; Write-
     Update-2019EmailAddressPolicy -Identity "Default Policy"
     Remove-AcceptedDomain -Identity pfelabs.local -Confirm:$false
 
-#Write-Host  " - Updating Exchange 2007 URLs..."
-#    Set-ClientAccessServer E2K7 -AutoDiscoverServiceInternalUri https://$fqdnmail/Autodiscover/Autodiscover.xml
-#    Set-OwaVirtualDirectory "E2K7\owa (Default Web Site)" -ExternalUrl https://$fqdnleg/owa -InternalUrl https://$fqdnleg/owa
-#    Set-OabVirtualDirectory "E2K7\oab (Default Web Site)" -ExternalUrl https://$fqdnleg/oab -InternalUrl https://$fqdnleg/oab
-#    Set-WebServicesVirtualDirectory "E2K7\ews (Default Web Site)" -ExternalUrl https://$fqdnleg/ews/Exchange.asmx -InternalUrl https://$fqdnleg/ews/Exchange.asmx
-#    Set-ActiveSyncVirtualDirectory "E2K7\Microsoft-Server-ActiveSync (Default Web Site)" -ExternalUrl https://$fqdnleg/Microsoft-Server-ActiveSync
-
-# Write-Host  " - Updating Exchange 2010 URLs..."
-#     Set-2010ClientAccessServer E2K10 -AutoDiscoverServiceInternalUri https://$fqdnmail/Autodiscover/Autodiscover.xml
-#     Set-2010EcpVirtualDirectory "E2K10\ecp (Default Web Site)" -ExternalUrl https://$fqdnmail/ecp -InternalUrl https://$fqdnmail/ecp -WarningAction:SilentlyContinue
-#     Set-2010OwaVirtualDirectory "E2K10\owa (Default Web Site)" -ExternalUrl https://$fqdnmail/owa -InternalUrl https://$fqdnmail/owa -WarningAction:SilentlyContinue
-#     Set-2010OabVirtualDirectory "E2K10\oab (Default Web Site)" -ExternalUrl https://$fqdnmail/oab -InternalUrl https://$fqdnmail/oab
-#     Set-2010WebServicesVirtualDirectory "E2K10\ews (Default Web Site)" -ExternalUrl https://$fqdnmail/ews/Exchange.asmx  -InternalUrl https://$fqdnmail/ews/Exchange.asmx
-#     Set-2010ActiveSyncVirtualDirectory "E2K10\Microsoft-Server-ActiveSync (Default Web Site)" -ExternalUrl https://$fqdnmail/Microsoft-Server-ActiveSync
-
 Write-Host  " - Updating Exchange 2019 URLs..."
-    Set-2019ClientAccessServer E2K19 -AutoDiscoverServiceInternalUri https://$fqdnmail/Autodiscover/Autodiscover.xml
+    Set-2019ClientAccessService E2K19 -AutoDiscoverServiceInternalUri https://$fqdnmail/Autodiscover/Autodiscover.xml
     Set-2019EcpVirtualDirectory "E2K19\ecp (Default Web Site)" -ExternalUrl https://$fqdnmail/ecp -InternalUrl https://$fqdnmail/ecp -WarningAction:SilentlyContinue
     Set-2019OwaVirtualDirectory "E2K19\owa (Default Web Site)" -ExternalUrl https://$fqdnmail/owa -InternalUrl https://$fqdnmail/owa -WarningAction:SilentlyContinue
     Set-2019OabVirtualDirectory "E2K19\oab (Default Web Site)" -ExternalUrl https://$fqdnmail/oab -InternalUrl https://$fqdnmail/oab
